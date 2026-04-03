@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+/* ===== PLAI DESIGN SYSTEM ===== */
+
+:root {
+  --background: #0a0e1a;
+  --foreground: #e2e8f0;
+  --card: #111827;
+  --card-hover: #1a2235;
+  --border: #1e293b;
+  --border-glow: #3b82f620;
+
+  /* Brand Colors */
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
+  --accent-glow: #3b82f640;
+  --success: #22c55e;
+  --success-glow: #22c55e30;
+  --warning: #f59e0b;
+  --warning-glow: #f59e0b30;
+  --danger: #f43f5e;
+  --danger-glow: #f43f5e30;
+  --purple: #a855f7;
+  --purple-glow: #a855f730;
+
+  /* Surface */
+  --surface-0: #0a0e1a;
+  --surface-1: #0f1629;
+  --surface-2: #141c30;
+  --surface-3: #1a2440;
+
+  /* Glass */
+  --glass-bg: rgba(15, 22, 41, 0.7);
+  --glass-border: rgba(59, 130, 246, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-purple: var(--purple);
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ===== BASE STYLES ===== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--surface-1);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== GLASSMORPHISM ===== */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-subtle {
+  background: rgba(15, 22, 41, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(59, 130, 246, 0.08);
+}
+
+/* ===== GLOW EFFECTS ===== */
+
+.glow-accent {
+  box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(59, 130, 246, 0.1);
+}
+
+.glow-success {
+  box-shadow: 0 0 20px var(--success-glow);
+}
+
+.glow-danger {
+  box-shadow: 0 0 20px var(--danger-glow);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px var(--purple-glow);
+}
+
+.text-glow {
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* ===== GRADIENTS ===== */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-light), var(--purple), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent), var(--purple), var(--accent));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+  50% { box-shadow: 0 0 40px var(--accent-glow), 0 0 80px rgba(59, 130, 246, 0.1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ===== SCAN LINE EFFECT ===== */
+.scan-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.3;
+  animation: scan-line 8s linear infinite;
+}
+
+/* ===== GRID BACKGROUND ===== */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ===== VIDEO PLAYER ===== */
+
+.video-container {
+  position: relative;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
+  padding: 40px 16px 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.video-container:hover .video-controls {
+  opacity: 1;
+}
+
+/* ===== TIMELINE ===== */
+
+.timeline-track {
+  position: relative;
+  height: 48px;
+  background: var(--surface-1);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.timeline-event {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  border-radius: 4px;
+  min-width: 4px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.timeline-event:hover {
+  transform: scaleY(1.2);
+  z-index: 10;
+}
+
+/* ===== HEATMAP ===== */
+
+.heatmap-overlay {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-0);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-light);
+}
