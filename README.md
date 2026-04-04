@@ -101,7 +101,5 @@ cd infra/docker && docker-compose up --build
 
 ---
 
-## 📄 License
 
-MIT © [Plai](https://github.com/Rishi-Vedula2099/Plai)
 
